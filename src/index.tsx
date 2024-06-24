@@ -17,6 +17,10 @@ const QrDecoder = NativeModules.QrDecoder
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return QrDecoder.multiply(a, b);
-}
+export const decodeQR = (uriString: string) => {
+  return new Promise((resolve, reject) => {
+    QrDecoder.decode(uriString)
+      .then((res: any) => resolve(res))
+      .catch((err: any) => reject(err));
+  });
+};
