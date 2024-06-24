@@ -1,13 +1,30 @@
 import * as React from 'react';
-
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
+import { decodeQR } from 'react-native-qr-decoder';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [result, setResult] = React.useState();
+
+  const exampleImage = require('./qr-code.png');
+
+  const barcode = async () =>
+    decodeQR(exampleImage)
+      .then((data) => {
+        setResult(data);
+        console.log('QR', data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  React.useEffect(() => {
+    console.log(exampleImage);
+    barcode();
+  }, [exampleImage]);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result} ASD</Text>
+      <Text>Result: {result}</Text>
     </View>
   );
 }
