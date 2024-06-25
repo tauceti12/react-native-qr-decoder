@@ -1,12 +1,12 @@
-#import "RCTQRDecoder.h"
+#import "QrDecoder.h"
 #import <React/RCTLog.h>
 #import <React/RCTConvert.h>
 #import <React/RCTUtils.h>
-@import MLKit;
+#import <MLKitVision/MLKitVision.h>
+#import <MLKitBarcodeScanning/MLKitBarcodeScanning.h>
 
-@implementation RCTQRDecoder
-
-RCT_EXPORT_MODULE();
+@implementation QrDecoder
+RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(decode:(NSString *)uriString
                   resolver:(RCTPromiseResolveBlock)resolve
