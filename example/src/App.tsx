@@ -60,7 +60,9 @@ export default function App() {
         <Image source={{ uri: imageUri }} style={styles.image} />
       ) : null}
       {result ? (
-        result.map(() => <Text>{result[0].url}</Text>)
+        result.map(() => (
+          <Text style={{ color: 'white' }}>{result[0].url}</Text>
+        ))
       ) : (
         <Text>No QR code decoded.</Text>
       )}
