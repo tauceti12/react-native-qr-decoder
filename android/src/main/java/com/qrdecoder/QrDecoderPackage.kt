@@ -14,5 +14,5 @@ class QRDecoderPackage : ReactPackage {
 
     override fun createNativeModules(
             reactContext: ReactApplicationContext
-    ): MutableList<NativeModule> = listOf(QRDecoder(reactContext)).toMutableList()
+    ): MutableList<NativeModule> = listOf(QrDecoder(reactContext)).toMutableList()
 }

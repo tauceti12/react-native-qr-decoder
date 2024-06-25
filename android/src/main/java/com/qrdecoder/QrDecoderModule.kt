@@ -14,7 +14,7 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
 
-class QRDecoder(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
+class QrDecoder(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
     private val options = BarcodeScannerOptions.Builder()
             .setBarcodeFormats(
@@ -25,7 +25,7 @@ class QRDecoder(reactContext: ReactApplicationContext) : ReactContextBaseJavaMod
     private val scanner = BarcodeScanning.getClient(options)
 
     override fun getName(): String {
-        return "BarcodeScanner"
+        return "QrDecoder"
     }
 
     @ReactMethod
@@ -36,7 +36,7 @@ class QRDecoder(reactContext: ReactApplicationContext) : ReactContextBaseJavaMod
         scanner.process(image)
                 .addOnSuccessListener { barcodes ->
                     val barcodeList = Arguments.createArray()
-                    Log.d("BARCODES", barcodes.toString())
+                    Log.d("QR Codes", barcodes.toString())
                     for (barcode in barcodes) {
                         val valueType = barcode.valueType
                         when (valueType) {
@@ -44,8 +44,8 @@ class QRDecoder(reactContext: ReactApplicationContext) : ReactContextBaseJavaMod
                                 val title = barcode.url?.title ?: "No title"
                                 val url = barcode.url?.url ?: "No URL"
                                 val barcodeMap = Arguments.createMap()
-                                barcodeMap.putString("name", title)
-                                barcodeMap.putString("url", url)
+                                barcodeMap.putString("name", title.toString())
+                                barcodeMap.putString("url", url.toString())
                                 barcodeList.pushMap(barcodeMap)
                             }
                         }
@@ -54,7 +54,7 @@ class QRDecoder(reactContext: ReactApplicationContext) : ReactContextBaseJavaMod
                     promise.resolve(barcodeList)
                 }
                 .addOnFailureListener { exception ->
-                    promise.reject("BARCODE_ERROR", exception.localizedMessage, exception)
+                    promise.reject("QRCODE_ERROR", exception.localizedMessage, exception)
                 }
     }
 }
